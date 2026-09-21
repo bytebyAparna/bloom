@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>bloom. - College Diaries</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+ body{font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;background:#fdf6f0}
+.display{font-family:'Fraunces',serif;font-weight:900;letter-spacing:-0.02em}
+.sticker{position:absolute;font-size:36px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));z-index:1}
+ @keyframes float1{0%,100%{transform:translateY(0px) rotate(-8deg)}50%{transform:translateY(-18px) rotate(8deg)}}
+ @keyframes float2{0%,100%{transform:translateY(0px) rotate(5deg)}50%{transform:translateY(-15px) rotate(-10deg)}}
+.frame-flower{border:14px solid white;outline:3px solid #ffb3d1;box-shadow:0 0 0 8px white,0 25px 50px rgba(255,100,150,0.25);border-radius:8px}
+.frame-polaroid{padding:16px 16px 70px 16px;background:white;transform:rotate(-1deg);box-shadow:0 20px 40px rgba(0,0,0,0.15);border-radius:4px}
+.frame-vintage{border:12px solid white;filter:sepia(0.15) saturate(1.2);box-shadow:0 0 0 3px #111,0 20px 40px rgba(0,0,0,0.2)}
+.frame-cloud{border-radius:36px;border:10px solid white;box-shadow:0 20px 40px rgba(0,0,0,0.12)}
+</style>
+</head>
+<body class="relative overflow-x-hidden">
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="sticker left-[2%] top-[12%]" style="animation:float1 3.2s infinite">🌸</div>
+<div class="sticker right-[4%] top-[18%]" style="animation:float2 2.8s infinite">🌼</div>
+<div class="sticker left-[6%] top-[60%]" style="animation:float1 3.5s infinite">💌</div>
+<div class="sticker right-[5%] top-[65%]" style="animation:float2 3s infinite">🌷</div>
+<div class="sticker left-[42%] top-[9%]" style="animation:float1 2.5s infinite">✨</div>
+<div class="sticker right-[38%] top-[88%]" style="animation:float2 3.8s infinite">🦋</div>
+<div class="sticker left-[18%] top-[85%]" style="animation:float1 4s infinite">🍒</div>
+<div class="sticker right-[15%] top-[8%]" style="animation:float2 3.1s infinite">💖</div>
+</div>
+
+<div class="sticky top-0 z-30 backdrop-blur-xl bg-white/85 border-b-2 border-pink-200 px-6 md:px-10 py-4 flex justify-between items-center">
+<div class="flex gap-3 items-center">
+<div class="w-11 h-11 rounded-full bg-black text-white grid place-items-center text-xl font-black">B</div>
+<div><h1 class="display text-[28px] leading-none">bloom.</h1><p class="text-[10px] font-black tracking-[0.35em] text-black">MEMORIES THAT OUTLIVE TIME</p></div>
+</div>
+<button onclick="openM()" class="bg-black text-white px-8 py-3.5 rounded-full font-extrabold text-sm hover:scale-105 transition">+ Add Bloom 🌸</button>
+</div>
+
+<div class="max-w-[1500px] mx-auto flex relative z-10">
+<div class="w-[340px] p-8 hidden lg:block sticky top-[77px] h-fit">
+<div class="bg-white rounded-[32px] p-7 border-2 border-pink-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+<p class="text-[11px] font-extrabold tracking-[0.2em] text-stone-400 mb-4">🌸 COURSE</p>
+<div id="crs" class="space-y-2.5 mb-8"></div>
+<p class="text-[11px] font-extrabold tracking-[0.2em] text-stone-400 mb-4">🎓 BATCH</p>
+<div id="yrs" class="flex flex-wrap gap-2.5"></div>
+</div>
+<div class="mt-6 bg-black text-white rounded-[24px] p-6">
+<p class="text-[10px] tracking-[0.3em] font-black text-pink-300">BLOOM TIP</p>
+<p class="display text-[18px] leading-tight mt-2">Add your first bloom to make this page alive 🌸</p>
+</div>
+</div>
+
+<div class="flex-1 p-5 md:p-10">
+<div class="flex justify-between items-end mb-10">
+<div><h2 class="display text-[72px] leading-[0.85]">all<br><span class="text-pink-400 italic">blooms</span></h2><p class="text-[12px] font-bold tracking-widest text-stone-400 mt-3">YOUR COLLEGE DIARIES, FOREVER 🌸</p></div>
+<div class="bg-black text-white rounded-full w-[80px] h-[80px] grid place-items-center shadow-xl"><div class="text-center"><p class="text-3xl font-black leading-none" id="cnt">0</p><p class="text-[9px] font-extrabold tracking-widest">BLOOMS</p></div></div>
+</div>
+<div id="grid" class="columns-1 md:columns-2 xl:columns-3 gap-10 space-y-10"></div>
+</div>
+</div>
+
+<div id="modal" class="fixed inset-0 bg-[#fdf6f0]/90 backdrop-blur-2xl hidden place-items-center z-50 p-4">
+<div class="bg-white rounded-[40px] w-full max-w-[620px] p-8 max-h-[95vh] overflow-auto border-2 border-pink-100 shadow-[0_40px_100px_rgba(0,0,0,0.25)]">
+<div class="flex justify-between mb-6"><div><h3 class="display text-[42px] leading-none">add a bloom</h3><p class="text-[10px] font-black tracking-[0.3em] text-pink-500 mt-2">30+ QUOTES • FRAMES • STICKERS • FOREVER ✨</p></div><button onclick="closeM()" class="w-10 h-10 bg-stone-100 rounded-full font-black">✕</button></div>
+<form id="form" class="space-y-5">
+<input name="name" required placeholder="Your Name" class="w-full bg-[#fdf6f0] border-2 border-pink-100 rounded-2xl px-5 py-4 font-bold">
+<div class="grid grid-cols-2 gap-3">
+<select name="course" class="bg-[#fdf6f0] border-2 border-pink-100 rounded-2xl px-5 py-4 font-extrabold"><option>BCA</option><option>MCA</option><option>MBA</option></select>
+<div class="relative"><input list="yearOptions" name="batch" placeholder="Year e.g. 2025 ✏️" class="w-full bg-[#fdf6f0] border-2 border-pink-100 rounded-2xl px-5 py-4 font-extrabold" required><datalist id="yearOptions"><option value="2026"><option value="2025"><option value="2024"><option value="2023"><option value="2022"><option value="2021"><option value="2020"><option value="2019"><option value="2018"><option value="2017"><option value="2016"><option value="2015"><option value="2014"><option value="2013"><option value="2012"><option value="2011"><option value="2010"><option value="2009"><option value="2008"><option value="2007"><option value="2006"><option value="2005"><option value="2004"><option value="2003"></datalist></div>
+</div>
+<div class="bg-[#fdf6f0] rounded-[20px] p-4 border-2 border-dashed border-pink-300">
+<p class="text-[11px] font-black tracking-widest mb-3">💬 CHOOSE A VIRAL QUOTE (CLICK TO FILL)</p>
+<select id="quoteSelect" class="w-full bg-white border-2 border-pink-100 rounded-xl px-4 py-3 text-[13px] font-bold" onchange="document.getElementById('capInput').value=this.value">
+<option value="">-- Pick 30+ trending college quotes --</option>
+<option>Friends who became family 💌</option>
+<option>College life = Best life 🌸</option>
+<option>We didn't realize we were making memories, we just knew we were having fun 🥹</option>
+<option>Padhai kam, yaadein zyada 😂</option>
+<option>Don't cry because it's over, smile because it happened 💌</option>
+<option>How lucky I am to have something that makes saying goodbye so hard 🌷</option>
+<option>Bunked lectures, made memories 🎓</option>
+<option>Officially unpaid comedians of campus 🎭</option>
+<option>This is our forever era ✨</option>
+<option>Goodbyes are hard, but memories are forever 🌸</option>
+<option>College ke din bhi kya din the yaar 🥺</option>
+<option>Yeh dosti hum nahi todenge 💖</option>
+<option>Last bench to first memories 🎓</option>
+</select>
+</div>
+<textarea name="caption" id="capInput" required placeholder="Your story in BOLD..." class="w-full bg-[#fdf6f0] border-2 border-pink-100 rounded-2xl px-5 py-4 h-28 font-bold text-[15px]"></textarea>
+<p class="text-[11px] font-black tracking-widest">🌸 PICK STICKER (FLOATS ON PHOTO)</p>
+<div class="grid grid-cols-6 gap-2 text-2xl" id="stickerPick"></div>
+<p class="text-[11px] font-black tracking-widest">🖼️ FRAME STYLE</p>
+<div class="grid grid-cols-2 gap-3">
+<label><input type="radio" name="template" value="flower" checked class="hidden peer"><div class="peer-checked:bg-black peer-checked:text-white border-2 border-pink-100 rounded-2xl p-4 text-center font-black cursor-pointer">🌸 Flower</div></label>
+<label><input type="radio" name="template" value="polaroid" class="hidden peer"><div class="peer-checked:bg-black peer-checked:text-white border-2 border-pink-100 rounded-2xl p-4 text-center font-black cursor-pointer">📸 Polaroid</div></label>
+<label><input type="radio" name="template" value="vintage" class="hidden peer"><div class="peer-checked:bg-black peer-checked:text-white border-2 border-pink-100 rounded-2xl p-4 text-center font-black cursor-pointer">🎞️ Vintage</div></label>
+<label><input type="radio" name="template" value="cloud" class="hidden peer"><div class="peer-checked:bg-black peer-checked:text-white border-2 border-pink-100 rounded-2xl p-4 text-center font-black cursor-pointer">☁️ Cloud</div></label>
+</div>
+<label class="block border-[3px] border-dashed border-black rounded-[24px] p-8 text-center cursor-pointer bg-[#fff7f1] hover:bg-[#ffe9e0] transition"><span class="font-black">📸 Click to Upload Photo</span><input type="file" name="photo" accept="image/*" required class="hidden" onchange="this.parentElement.querySelector('span').innerText='✅ '+this.files[0].name"></label>
+<input type="hidden" name="sticker" id="stickerInput" value="🌸">
+<button class="w-full bg-black text-white rounded-2xl py-5 font-black text-[17px] hover:scale-[1.02] transition">Bloom It Forever → ✨</button>
+</form>
+</div>
+</div>
+
+<script>
+let all=[],fc='All',fy='All',selectedSticker='🌸';
+const courses=['All','BCA','MCA','MBA'],years=['All','2026','2025','2024','2023','2022','2021','2020','2019','2018','2017','2016','2015','2014','2013','2012','2011','2010','2009','2008','2007','2006','2005','2004','2003'];
+const stickersList=['🌸','🌼','🌷','🌻','🌺','💌','✨','🦋','🍒','💖','🎀','🌈','🎓','📸','💌','🥹'];
+function renderF(){
+crs.innerHTML=courses.map(c=>`<button onclick="fc='${c}';renderF();renderG()" class="w-full text-left px-5 py-3.5 rounded-2xl text-[14px] font-extrabold transition ${fc===c?'bg-black text-white shadow-lg scale-105':'bg-white border-2 border-pink-100 hover:border-black'}">${c}</button>`).join('');
+yrs.innerHTML=years.map(y=>`<button onclick="fy='${y}';renderF();renderG()" class="px-4 py-2.5 rounded-full text-xs font-black border-2 ${fy===y?'bg-black text-white border-black':'bg-white border-pink-100 hover:border-black'}">${y}</button>`).join('');
+stickerPick.innerHTML=stickersList.map(s=>`<button type="button" onclick="selectedSticker='${s}';document.getElementById('stickerInput').value='${s}';document.querySelectorAll('#stickerPick button').forEach(b=>b.classList.remove('bg-black','text-white','scale-110'));this.classList.add('bg-black','text-white','scale-110')" class="w-11 h-11 rounded-full border-2 border-pink-100 grid place-items-center hover:scale-110 transition ${s===selectedSticker?'bg-black text-white':''}">${s}</button>`).join('');
+}
+async function load(){try{all=await(await fetch('http://localhost:5000/api/memories')).json();}catch(e){all=[]}renderG();}
+function tplClass(t){return{flower:'frame-flower',polaroid:'frame-polaroid',vintage:'frame-vintage',cloud:'frame-cloud'}[t]||'frame-flower';}
+function canDelete(m){const myId=localStorage.getItem('bloom_user_id');return myId&&m.uploaderId===myId;}
+function renderG(){
+let f=all.filter(m=>(fc==='All'||m.course===fc)&&(fy==='All'||m.batch===fy));
+document.getElementById('cnt').innerText=f.length;
+document.getElementById('grid').innerHTML=f.map(m=>`
+<div class="break-inside-avoid group relative hover:scale-[1.02] transition">
+<div class="absolute -top-5 -right-5 text-[36px] z-20 rotate-12 drop-shadow-xl">${m.sticker||'🌸'}</div>
+<div class="${tplClass(m.template)} bg-white overflow-hidden">
+<img src="http://localhost:5000${m.photo}" class="w-full object-cover max-h-[600px]">
+<div class="p-6 bg-white">
+<div class="flex justify-between items-start"><div class="flex gap-3 items-center"><div class="w-10 h-10 rounded-full bg-black text-white grid place-items-center text-sm font-black">${m.name[0]}</div><div><p class="text-[15px] font-black leading-none">${m.name}</p><p class="text-[11px] font-extrabold text-pink-400 mt-1">${m.course} • ${m.batch}</p></div></div>${canDelete(m)?`<button onclick="del('${m.id}')" class="bg-red-50 text-red-500 px-3 py-1.5 rounded-full text-[10px] font-black">DELETE ✕</button>`:`<span class="text-[9px] font-black text-stone-300 border px-2 py-1 rounded-full">LOCKED 🔒</span>`}</div>
+<p class="display text-[22px] leading-[1.1] mt-5">“${m.caption}”</p>
+</div></div></div>`).join('')||`<div class="py-24 text-center col-span-3"><p class="display text-5xl italic text-stone-300 leading-tight"><br></p><p class="mt-4 text-stone-400 font-bold">Your blooms here ✨</p></div>`;
+}
+async function del(id){if(!confirm('Delete your bloom?'))return;await fetch('http://localhost:5000/api/memories/'+id,{method:'DELETE'});load();}
+function openM(){document.getElementById('modal').classList.remove('hidden');document.getElementById('modal').classList.add('grid')}
+function closeM(){document.getElementById('modal').classList.add('hidden')}
+document.getElementById('form').onsubmit=async(e)=>{e.preventDefault();const fd=new FormData(e.target);let uid=localStorage.getItem('bloom_user_id');if(!uid){uid='user_'+Date.now();localStorage.setItem('bloom_user_id',uid);}fd.append('uploaderId',uid);fd.append('uploaderName',e.target.name.value);const btn=e.target.querySelector('button');btn.innerText='Blooming... 🌸';try{await fetch('http://localhost:5000/api/upload',{method:'POST',body:fd});closeM();e.target.reset();btn.innerText='Bloom It Forever → ✨';load();}catch(err){alert('Server not running! Run docker compose up --build');btn.innerText='Bloom It Forever → ✨';}}
+renderF();load();
+</script>
+</body>
+</html>

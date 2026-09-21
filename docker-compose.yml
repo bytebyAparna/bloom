@@ -1,0 +1,19 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - "5000:5000"
+    volumes:
+      - uploads-data:/app/uploads
+      - memories-data:/app/data
+
+  client:
+    build: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+
+volumes:
+  uploads-data:
+  memories-data:
