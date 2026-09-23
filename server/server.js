@@ -50,4 +50,6 @@ app.delete('/api/memories/:id', (req,res)=>{
   res.json({ok:true});
 });
 
-app.listen(5000, ()=> console.log('Vault running with VOLUMES')); this ??
+app.listen(process.env.PORT || 5000,  () => 
+  console.log('Vault running ');
+});
