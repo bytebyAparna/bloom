@@ -51,5 +51,5 @@ app.delete('/api/memories/:id', (req,res)=>{
 });
 
 app.listen(process.env.PORT || 5000,  () => 
-  console.log('Vault running ');
+  console.log('Vault running '));
 });
