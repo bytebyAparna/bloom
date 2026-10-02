@@ -9,13 +9,13 @@ pipeline {
         }
         stage('Build Docker Images') {
             steps {
-                bat 'docker-compose build'
+                sh 'docker-compose build'
             }
         }
         stage('Test') {
             steps {
                 echo 'Build successful - images ready'
-                bat 'docker images'
+                sh 'docker images'
             }
         }
     }
